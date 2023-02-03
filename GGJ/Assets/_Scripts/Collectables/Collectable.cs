@@ -1,13 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
+[RequireComponent(typeof(SphereCollider))]
 public class Collectable : MonoBehaviour
 {
-    [SerializeField] private ItemSO _itemToGive;
-
-    private void OnTriggerEnter(Collider other)
-    {
-        throw new NotImplementedException();
-    }
+    [field: SerializeField] public ItemSO _itemToGive { get; private set; }
+    public bool IsCollected = false;
 }
 

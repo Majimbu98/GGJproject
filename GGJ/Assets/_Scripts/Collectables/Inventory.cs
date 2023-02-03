@@ -4,19 +4,20 @@ using UnityEngine.Events;
 
 public class Inventory : Singleton<Inventory>
 {
-    [field: SerializeField] public List<InvetoryEntry> items { get; private set; }
+    [field: SerializeField] public List<InventoryEntry> items { get; private set; }
 
-    public UnityEvent<InvetoryEntry> OnItemPickup;
+    public UnityEvent<InventoryEntry> OnItemPickup;
 
-    public void AddItem(InvetoryEntry newEntry)
+    public void AddItem(InventoryEntry newEntry)
     {
-        if (items.Contains(newEntry))
+        var item = items.Find(entry => entry.Item == newEntry.Item);
+        
+        if (item != null)
         {
-            items.Find(entry => entry == newEntry).Quantity++;
+            item.Quantity++;
         }
         else
         {
-            newEntry.Quantity++;
             items.Add(newEntry);
         }
         
