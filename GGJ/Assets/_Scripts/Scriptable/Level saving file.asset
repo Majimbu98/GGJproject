@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: defb3a5cbea130440a6a833f61157d06, type: 3}
   m_Name: Level saving file
   m_EditorClassIdentifier: 
-  lastScene: Level1
+  lastScene: StartingCutScene

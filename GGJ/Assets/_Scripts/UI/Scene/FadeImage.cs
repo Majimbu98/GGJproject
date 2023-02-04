@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 public class FadeImage : Singleton<FadeImage>
 {
     [SerializeField] private CanvasGroup canvasGroup;
-
+    [SerializeField] private LevelSaving savingData;
+    
     protected override void Awake()
     {
         base.Awake();
@@ -21,6 +22,7 @@ public class FadeImage : Singleton<FadeImage>
         {
             SceneManager.LoadSceneAsync(sceneName).completed += asyncOperation =>
             {
+                savingData.SetLastScene(sceneName);
                 LeanTween.value(gameObject, f =>
                 {
                     canvasGroup.alpha= f;
