@@ -2393,6 +2393,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8744067744838872094, guid: 3988cd410ba233e40897a02a5cbb1992, type: 3}
+      propertyPath: sceneName
+      value: BO_Scene_01
+      objectReference: {fileID: 0}
     - target: {fileID: 8744067744838872095, guid: 3988cd410ba233e40897a02a5cbb1992, type: 3}
       propertyPath: m_Name
       value: Transition Volume
