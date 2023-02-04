@@ -4,22 +4,38 @@ using UnityEngine.Events;
 
 public class Inventory : Singleton<Inventory>
 {
-    [field: SerializeField] public List<InvetoryEntry> items { get; private set; }
+    [field: SerializeField] public List<InventoryEntry> items { get; private set; }
 
-    public UnityEvent<InvetoryEntry> OnItemPickup;
+    public UnityEvent<InventoryEntry> OnItemPickup;
+    public UnityEvent<InventoryEntry> OnItemRemoved;
 
-    public void AddItem(InvetoryEntry newEntry)
+    public void AddItem(InventoryEntry newEntry)
     {
-        if (items.Contains(newEntry))
+        var item = items.Find(entry => entry.Item == newEntry.Item);
+        
+        if (item != null)
         {
-            items.Find(entry => entry == newEntry).Quantity++;
+            item.Quantity++;
         }
         else
         {
-            newEntry.Quantity++;
             items.Add(newEntry);
         }
         
         OnItemPickup?.Invoke(newEntry);
+    }
+    
+    public void RemoveItem(InventoryEntry newEntry)
+    {
+        var item = items.Find(entry => entry.Item == newEntry.Item);
+
+        item.Quantity--;
+        
+        if (item.Quantity <= 0)
+        {
+            items.Remove(item);
+        }
+        
+        OnItemRemoved?.Invoke(newEntry);
     }
 }
