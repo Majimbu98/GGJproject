@@ -23,7 +23,7 @@ public class Collectable : MonoBehaviour
         StartCoroutine(nameof(OnEnableCoroutine));
     }
 
-    public void ActivateCollectable()
+    private void ActivateCollectable()
     {
         IsPickable = true;
     }
@@ -43,6 +43,8 @@ public class Collectable : MonoBehaviour
         {
             IsPickable = true;
         });
+        
+        QuestComponent.OnQuestStart += ActivateCollectable;
     }
 }
 

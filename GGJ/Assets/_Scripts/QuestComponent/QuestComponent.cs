@@ -17,7 +17,9 @@ public class QuestComponent : MonoBehaviour
 [SerializeField] private EnumStateQuest stateQuest;
 private bool completed = false;
 private bool canInteract = false;
+
 public static event Action OnQuestStart;
+public static event Action OnItemGive;
 
 #endregion
 
@@ -40,14 +42,17 @@ public static event Action OnQuestStart;
     {
         if (completed) return;
         
-            if (Input.GetKeyDown(interactKey) && canInteract)
+        if (Input.GetKeyDown(interactKey) && canInteract)
         {
             if (stateQuest == EnumStateQuest.NotStarted)
             {
                 OnQuestStart?.Invoke();
                 stateQuest = EnumStateQuest.Started;
             }
-            
+            else
+            {
+                OnItemGive?.Invoke();
+            }
         }
     }
 

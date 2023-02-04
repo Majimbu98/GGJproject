@@ -30,6 +30,7 @@ public class Entity : MonoBehaviour
     private void Start()
     {
         Inventory.Instance.OnItemPickup.AddListener(ActivateEntity);
+        QuestComponent.OnItemGive += ResetEntities;
 
         gameObject.SetActive(false);
     }
@@ -54,6 +55,11 @@ public class Entity : MonoBehaviour
     {
         OnCollectorCollision?.Invoke(new InventoryEntry(item));
 
+        ResetEntities();
+    }
+
+    private void ResetEntities()
+    {
         foreach (var entity in entities)
         {
             LeanTween.moveY(entity.gameObject, 20f, 4f).setOnComplete((() =>
