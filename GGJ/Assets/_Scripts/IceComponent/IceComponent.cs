@@ -7,7 +7,7 @@ public class IceComponent : MonoBehaviour
 
 #region Variables & Properties
 
-
+[SerializeField] private float time;
 
 #endregion
 
@@ -35,7 +35,19 @@ public class IceComponent : MonoBehaviour
 
 #region Methods
 
+private void OnCollisionEnter(Collision collision)
+{
+    if (collision.gameObject.tag == "Player")
+    {
+        StartCoroutine(TimerDeactive());
+    }
+}
 
+private IEnumerator TimerDeactive()
+{
+    yield return new WaitForSeconds(time);
+    gameObject.SetActive(false);
+}
 
 #endregion
 
