@@ -16,13 +16,12 @@ public class Collector : MonoBehaviour
 
     private void TakeCollectable(Collectable collectable)
     {
-        Inventory.Instance.AddItem(new InventoryEntry(collectable._itemToGive));
+        Inventory.Instance.AddItem(collectable.entry);
         collectable.IsCollected = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Seeing Collectable!");
         _collectable = other.GetComponent<Collectable>();
     }
 
@@ -37,8 +36,6 @@ public class Collector : MonoBehaviour
                 OnCollectableTaken?.Invoke(_collectable);
             }
         }
-        
-        Debug.Log($"Can Pick Collectable!");
     }
 
     private void OnTriggerExit(Collider other)
@@ -47,9 +44,5 @@ public class Collector : MonoBehaviour
         {
             _collectable = null;
         }
-        
-        Debug.Log($"Lost Collectable!");
-
     }
 }
-
