@@ -2,22 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CutSceneManager : MonoBehaviour
 {
 
 #region Variables & Properties
 
-[SerializeField] private GameObject firstImage;
-[SerializeField] private GameObject secondImage;
-[SerializeField] private GameObject thirdImage;
-[SerializeField] private GameObject fourthImage;
-
-[SerializeField] private float timer1;
-[SerializeField] private float timer2;
-[SerializeField] private float timer3;
-[SerializeField] private float timer4;
-[SerializeField] private LevelSaving savingData;
+[SerializeField] private Image image;
+[SerializeField] private List<Sprite> spriteList;
+[SerializeField] private float timer;
 
 #endregion
 
@@ -47,22 +41,32 @@ public class CutSceneManager : MonoBehaviour
 
 private IEnumerator TimeCutSceneGeneral()
 {
-    yield return StartCoroutine(TimerCutScene(firstImage, secondImage, timer1));
-    yield return StartCoroutine(TimerCutScene(secondImage, thirdImage, timer2));
-    yield return StartCoroutine(TimerCutScene(thirdImage, fourthImage, timer3));
-    yield return new WaitForSeconds(timer4);
+    foreach (var sprite in spriteList)
+    {
+        bool isDone = false;
+        image.sprite = sprite;
+        LeanTween.value(gameObject, Color =>
+        {
+            image.color = Color;
+        }, Color.black, Color.white, 0.5f).setOnComplete((() =>
+        {
+            LeanTween.delayedCall(timer, () =>
+            {
+                LeanTween.value(gameObject, Color =>
+                {
+                    image.color = Color;
+                }, Color.white, Color.black, 0.25f).setOnComplete((() =>
+                {
+                    isDone = true;
+                }));
+            });
+        }));
+
+        yield return new WaitUntil((() => isDone));
+    }
     
-    savingData.SetLastScene("Level1");
-    SceneManager.LoadScene("Level1");
+    FadeImage.Instance.FadeAndLoad("Level1");
 
-}
-
-private IEnumerator TimerCutScene(GameObject newFirstImage, GameObject newSecondImage, float time)
-{
-    //TODO BETTER... maybe becoming black with transition and sound?
-    yield return new WaitForSeconds(time);
-    newFirstImage.SetActive(false);
-    newSecondImage.SetActive(true);
 }
 
 #endregion
