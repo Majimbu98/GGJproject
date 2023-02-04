@@ -19,7 +19,7 @@ private bool completed = false;
 private bool canInteract = false;
 
 public static event Action OnQuestStart;
-public static event Action OnItemGive;
+public static event Action<InventoryEntry> OnItemGive;
 
 #endregion
 
@@ -51,7 +51,7 @@ public static event Action OnItemGive;
             }
             else
             {
-                OnItemGive?.Invoke();
+                OnItemGive?.Invoke(Inventory.Instance.GetItem(quest.item));
             }
         }
     }
@@ -83,6 +83,8 @@ public static event Action OnItemGive;
 
 private void CheckCompletion(InventoryEntry entry)
 {
+    if (entry == null) return;
+    
     if (entry.Quantity == quest.GetNumber())
     {
         completed = true;
@@ -94,7 +96,7 @@ private void CheckCompletion(InventoryEntry entry)
 IEnumerator OnEnableCoroutine()
 {
     yield return new WaitUntil((() => Inventory.Instance));
-    Inventory.Instance.OnItemPickup.AddListener(CheckCompletion);
+    OnItemGive += CheckCompletion;
 }
 
 #endregion

@@ -12,7 +12,7 @@ public class ScriptableQuest : ScriptableObject
 
 [SerializeField] private Sprite sprite;
 [SerializeField] private int number;
-[SerializeField] private ItemSO item;
+[field: SerializeField] public ItemSO item { get; private set; }
 
 #endregion
 

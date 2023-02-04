@@ -55,10 +55,10 @@ public class Entity : MonoBehaviour
     {
         OnCollectorCollision?.Invoke(new InventoryEntry(item));
 
-        ResetEntities();
+        ResetEntities(new InventoryEntry(item));
     }
 
-    private void ResetEntities()
+    private void ResetEntities(InventoryEntry entry)
     {
         foreach (var entity in entities)
         {

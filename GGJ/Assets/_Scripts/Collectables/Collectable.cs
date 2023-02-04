@@ -45,6 +45,13 @@ public class Collectable : MonoBehaviour
         });
         
         QuestComponent.OnQuestStart += ActivateCollectable;
+        
+        QuestComponent.OnItemGive += ActivateAfterQuest;
+    }
+
+    private void ActivateAfterQuest(InventoryEntry entry)
+    {
+        if (!IsCollected) IsPickable = true;
     }
 }
 

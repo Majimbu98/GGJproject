@@ -53,4 +53,9 @@ public class Inventory : Singleton<Inventory>
 
         OnItemRemoved?.Invoke(newEntry);
     }
+
+    public InventoryEntry GetItem(ItemSO item)
+    {
+        return items.Find(entry => entry.Item == item);
+    }
 }
