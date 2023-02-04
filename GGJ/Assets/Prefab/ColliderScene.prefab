@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameScene: 
+  levelsaving: {fileID: 11400000, guid: 60e48028008655d46be9e4ce00a3fb5d, type: 2}
 --- !u!65 &95425413052356449
 BoxCollider:
   m_ObjectHideFlags: 0

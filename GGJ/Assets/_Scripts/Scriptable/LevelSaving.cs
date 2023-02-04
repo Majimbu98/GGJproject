@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class SceneCollider : MonoBehaviour
+[CreateAssetMenu(fileName = "Level saving file", menuName = " Level Saving File")]
+public class LevelSaving : ScriptableObject
 {
 
 #region Variables & Properties
 
-[SerializeField] private string nameScene;
-[SerializeField] private LevelSaving levelsaving;
+[SerializeField] private string lastScene;
 
 #endregion
 
@@ -37,13 +36,14 @@ public class SceneCollider : MonoBehaviour
 
 #region Methods
 
-private void OnCollisionEnter(Collision collision)
+public void SetLastScene(string newScene)
 {
-    if (collision.gameObject.tag == "Player")
-    {
-        levelsaving.SetLastScene(nameScene);
-        SceneManager.LoadScene(nameScene);
-    }
+    lastScene = newScene;
+}
+
+public string GetSceneName()
+{
+    return lastScene;
 }
 
 #endregion

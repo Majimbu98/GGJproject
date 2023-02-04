@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneCollider : MonoBehaviour
+public class ButtonLibrary : MonoBehaviour
 {
 
 #region Variables & Properties
 
-[SerializeField] private string nameScene;
-[SerializeField] private LevelSaving levelsaving;
+[SerializeField] private GameObject pauseScreen;
+[SerializeField] private LevelSaving _levelSaving;
 
 #endregion
 
@@ -37,13 +37,24 @@ public class SceneCollider : MonoBehaviour
 
 #region Methods
 
-private void OnCollisionEnter(Collision collision)
+public void Pause()
 {
-    if (collision.gameObject.tag == "Player")
-    {
-        levelsaving.SetLastScene(nameScene);
-        SceneManager.LoadScene(nameScene);
-    }
+    pauseScreen.SetActive(false);
+}
+
+public void Resume()
+{
+    pauseScreen.SetActive(false);
+}
+
+public void OpenGame()
+{
+    SceneManager.LoadScene(_levelSaving.GetSceneName());
+}
+
+public void Quit()
+{
+    Application.Quit();
 }
 
 #endregion
