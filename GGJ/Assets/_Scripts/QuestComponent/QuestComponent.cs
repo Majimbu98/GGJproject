@@ -13,6 +13,11 @@ public class QuestComponent : MonoBehaviour
 [SerializeField] private QuestUI questUI;
 [SerializeField] private Transform finalPosition;
 [SerializeField] private float speed;
+[SerializeField] private KeyCode interactKey;
+[SerializeField] private EnumStateQuest stateQuest;
+private bool completed = false;
+private bool canInteract = false;
+public static event Action OnQuestStart;
 
 #endregion
 
@@ -33,7 +38,33 @@ public class QuestComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (completed) return;
         
+            if (Input.GetKeyDown(interactKey) && canInteract)
+        {
+            if (stateQuest == EnumStateQuest.NotStarted)
+            {
+                OnQuestStart?.Invoke();
+                stateQuest = EnumStateQuest.Started;
+            }
+            
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            canInteract = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            canInteract = false;
+        }
     }
 
     private void OnEnable()
@@ -49,6 +80,7 @@ private void CheckCompletion(InventoryEntry entry)
 {
     if (entry.Quantity == quest.GetNumber())
     {
+        completed = true;
         questUI.gameObject.SetActive(false);
         LeanTween.move(gameObject, finalPosition.position, speed);
     }
