@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,13 +7,37 @@ using UnityEngine.Events;
 public class Collectable : MonoBehaviour
 {
     [field: SerializeField] public ItemSO _itemToGive { get; private set; }
+    
     public bool IsCollected = false;
+    [field: SerializeField] public bool IsPickable { get; private set; } = true;
     
     public InventoryEntry entry { get; private set; }
 
     private void Awake()
     {
-        entry = new InventoryEntry(_itemToGive);
+        entry = new InventoryEntry(_itemToGive, this);
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(nameof(OnEnableCoroutine));
+    }
+
+    IEnumerator OnEnableCoroutine()
+    {
+        yield return new WaitUntil((() => Inventory.Instance));
+        
+        Inventory.Instance.OnItemPickup.AddListener(_entry =>
+        {
+            if (entry == _entry) IsCollected = true;
+            
+            IsPickable = false;
+        });
+        
+        Inventory.Instance.OnItemRemoved.AddListener(_entry =>
+        {
+            IsPickable = true;
+        });
     }
 }
 

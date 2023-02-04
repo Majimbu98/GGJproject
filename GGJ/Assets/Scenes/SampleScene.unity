@@ -654,6 +654,9 @@ MonoBehaviour:
   OnItemPickup:
     m_PersistentCalls:
       m_Calls: []
+  OnItemRemoved:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &2021667161
 Transform:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class Collector : MonoBehaviour
     [SerializeField] private KeyCode collectionKey;
     [SerializeField] private Collectable _collectable;
 
-    private event Action<Collectable> OnCollectableTaken;
+    public static event Action<Collectable> OnCollectableTaken;
 
     private void OnEnable()
     {
@@ -17,7 +17,6 @@ public class Collector : MonoBehaviour
     private void TakeCollectable(Collectable collectable)
     {
         Inventory.Instance.AddItem(collectable.entry);
-        collectable.IsCollected = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,9 +30,12 @@ public class Collector : MonoBehaviour
         
         if (Input.GetKeyDown(collectionKey))
         {
-            if (_collectable && !_collectable.IsCollected)
+            if (_collectable)
             {
-                OnCollectableTaken?.Invoke(_collectable);
+                if (!_collectable.IsCollected && _collectable.IsPickable)
+                {
+                    OnCollectableTaken?.Invoke(_collectable);
+                }
             }
         }
     }
