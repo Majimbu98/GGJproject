@@ -9,7 +9,7 @@ public class Collectable : MonoBehaviour
     [field: SerializeField] public ItemSO _itemToGive { get; private set; }
     
     public bool IsCollected = false;
-    [field: SerializeField] public bool IsPickable { get; private set; } = true;
+    [field: SerializeField] public bool IsPickable { get; private set; } = false;
     
     public InventoryEntry entry { get; private set; }
 
@@ -21,6 +21,11 @@ public class Collectable : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(nameof(OnEnableCoroutine));
+    }
+
+    public void ActivateCollectable()
+    {
+        IsPickable = true;
     }
 
     IEnumerator OnEnableCoroutine()

@@ -2056,7 +2056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <_itemToGive>k__BackingField: {fileID: 11400000, guid: 066ad343f56df994e92c789adf54fd09, type: 2}
   IsCollected: 0
-  <IsPickable>k__BackingField: 1
+  <IsPickable>k__BackingField: 0
 --- !u!135 &2005045769
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2196,7 +2196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <_itemToGive>k__BackingField: {fileID: 11400000, guid: 066ad343f56df994e92c789adf54fd09, type: 2}
   IsCollected: 0
-  <IsPickable>k__BackingField: 1
+  <IsPickable>k__BackingField: 0
 --- !u!135 &2123022290
 SphereCollider:
   m_ObjectHideFlags: 0
