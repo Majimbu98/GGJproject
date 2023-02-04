@@ -1,13 +1,18 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 
+[RequireComponent(typeof(SphereCollider))]
 public class Collectable : MonoBehaviour
 {
-    [SerializeField] private ItemSO _itemToGive;
+    [field: SerializeField] public ItemSO _itemToGive { get; private set; }
+    public bool IsCollected = false;
+    
+    public InventoryEntry entry { get; private set; }
 
-    private void OnTriggerEnter(Collider other)
+    private void Awake()
     {
-        throw new NotImplementedException();
+        entry = new InventoryEntry(_itemToGive);
     }
 }
 
