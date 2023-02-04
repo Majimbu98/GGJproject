@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 1e7c5a209d0a8344882ea655d96fa264
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Pustoh
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 1c63cb065e938934398e1e283f65c506, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
