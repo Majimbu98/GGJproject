@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,19 +10,18 @@ public class QuestComponent : MonoBehaviour
 #region Variables & Properties
 
 [SerializeField] private ScriptableQuest quest;
-[SerializeField] private Image ItemImage;
-[SerializeField] private Text numberItem;
-
+[SerializeField] private QuestUI questUI;
+[SerializeField] private Transform finalPosition;
+[SerializeField] private float speed;
 
 #endregion
 
 #region MonoBehaviour
 
-    // Awake is called when the script instance is being loaded
+// Awake is called when the script instance is being loaded
     void Awake()
     {
-        ItemImage.sprite = quest.GetSprite();
-        numberItem.text = quest.GetNumber().ToString();
+        questUI.SetData(quest);
     }
 
     // Start is called before the first frame update
@@ -36,9 +36,24 @@ public class QuestComponent : MonoBehaviour
         
     }
 
-#endregion
+    private void OnEnable()
+    {
+        Inventory.Instance.OnItemPickup.AddListener(CheckCompletion);
+    }
+
+    #endregion
 
 #region Methods
+
+private void CheckCompletion(InventoryEntry entry)
+{
+    
+    if (entry.Quantity == quest.GetNumber())
+    {
+        questUI.gameObject.SetActive(false);
+        LeanTween.move(gameObject, finalPosition.position, speed);
+    }
+}
 
 
 
