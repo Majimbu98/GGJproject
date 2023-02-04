@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class ScriptableQuest : ScriptableObject
 
 [SerializeField] private Sprite sprite;
 [SerializeField] private int number;
-//ITEM
+[SerializeField] private ItemSO item;
 
 #endregion
 
