@@ -14,6 +14,20 @@ public class Collector : MonoBehaviour
         OnCollectableTaken += TakeCollectable;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(collectionKey))
+        {
+            if (_collectable)
+            {
+                if (!_collectable.IsCollected && _collectable.IsPickable)
+                {
+                    OnCollectableTaken?.Invoke(_collectable);
+                }
+            }
+        }
+    }
+
     private void TakeCollectable(Collectable collectable)
     {
         Inventory.Instance.AddItem(collectable.entry);
@@ -27,17 +41,6 @@ public class Collector : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (!_collectable) _collectable = other.GetComponent<Collectable>();
-        
-        if (Input.GetKeyDown(collectionKey))
-        {
-            if (_collectable)
-            {
-                if (!_collectable.IsCollected && _collectable.IsPickable)
-                {
-                    OnCollectableTaken?.Invoke(_collectable);
-                }
-            }
-        }
     }
 
     private void OnTriggerExit(Collider other)
