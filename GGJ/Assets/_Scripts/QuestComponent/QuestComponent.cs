@@ -38,7 +38,7 @@ public class QuestComponent : MonoBehaviour
 
     private void OnEnable()
     {
-        Inventory.Instance.OnItemPickup.AddListener(CheckCompletion);
+        StartCoroutine(nameof(OnEnableCoroutine));
     }
 
     #endregion
@@ -47,7 +47,6 @@ public class QuestComponent : MonoBehaviour
 
 private void CheckCompletion(InventoryEntry entry)
 {
-    
     if (entry.Quantity == quest.GetNumber())
     {
         questUI.gameObject.SetActive(false);
@@ -55,7 +54,11 @@ private void CheckCompletion(InventoryEntry entry)
     }
 }
 
-
+IEnumerator OnEnableCoroutine()
+{
+    yield return new WaitUntil((() => Inventory.Instance));
+    Inventory.Instance.OnItemPickup.AddListener(CheckCompletion);
+}
 
 #endregion
 
