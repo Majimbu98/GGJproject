@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,13 +14,17 @@ public class Entity : MonoBehaviour
 
     private Vector3 startPosition;
     private Quaternion startRotation;
-    
+
+    private List<Entity> entities;
+
     public static event Action<InventoryEntry> OnCollectorCollision; 
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         startPosition = transform.position;
+
+        entities = FindObjectsOfType<Entity>().ToList();
     }
 
     private void Start()
@@ -48,26 +54,21 @@ public class Entity : MonoBehaviour
     {
         OnCollectorCollision?.Invoke(new InventoryEntry(item));
 
-        LeanTween.moveY(gameObject, 20f, 4f).setOnComplete(ResetEntity);
+        foreach (var entity in entities)
+        {
+            LeanTween.moveY(entity.gameObject, 20f, 4f).setOnComplete((() =>
+            {
+                entity.transform.position = entity.startPosition;
+                entity.gameObject.SetActive(false);
+                entity.agent.enabled = false;
+            }));
+        }
     }
 
     private void ActivateEntity(InventoryEntry arg0)
     {
         gameObject.SetActive(true);
         agent.enabled = true;
-    }
-    
-    private void ResetEntity()
-    {
-        transform.position = startPosition;
-        gameObject.SetActive(false);
-        agent.enabled = false;
-    }
-
-    IEnumerator OnEnableCoroutine()
-    {
-        yield return new WaitUntil((() => Inventory.Instance));
-        
     }
 }
 
