@@ -9,6 +9,8 @@ public class LevelSaving : ScriptableObject
 #region Variables & Properties
 
 [SerializeField] private string lastScene;
+[SerializeField] private bool ResetLevels = false;
+private string FirstScene = "StartingCutScene";
 
 #endregion
 
@@ -17,7 +19,10 @@ public class LevelSaving : ScriptableObject
     // Awake is called when the script instance is being loaded
     void Awake()
     {
-	
+        if (ResetLevels)
+        {
+            lastScene = FirstScene;
+        }
     }
 
     // Start is called before the first frame update

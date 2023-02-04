@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class ButtonLibrary : MonoBehaviour
 {
 
 #region Variables & Properties
 
+[SerializeField] private Sprite muted;
+[SerializeField] private Sprite smuted;
+[SerializeField] private Image muteSmuteImage;
 [SerializeField] private GameObject pauseScreen;
 [SerializeField] private LevelSaving _levelSaving;
 
@@ -36,6 +40,11 @@ public class ButtonLibrary : MonoBehaviour
 #endregion
 
 #region Methods
+
+public void MuteSmute()
+{
+    //TODO
+}
 
 public void Pause()
 {
