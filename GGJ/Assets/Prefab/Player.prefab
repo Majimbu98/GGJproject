@@ -45,7 +45,6 @@ GameObject:
   - component: {fileID: 5987348740327054106}
   - component: {fileID: 2671371726159399845}
   - component: {fileID: 6500292810785060636}
-  - component: {fileID: 6908972601346786053}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -164,23 +163,9 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 64
+  ice:
+    serializedVersion: 2
+    m_Bits: 128
   jumpForce: 5
-  movementSpeed: 6
---- !u!143 &6908972601346786053
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7681375673741565464}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  movementSpeed: 10
+  movementSpeedOnIce: 15
