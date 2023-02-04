@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class WoodenLog : MonoBehaviour
 {
-    float durata = 10;
-    Vector3 destinazione = new Vector3(0f,0f,10f);
+    [SerializeField] public float durata = 10;
+    [SerializeField] Vector3 destinazione = new Vector3(0f,0f,10f);
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +15,7 @@ public class WoodenLog : MonoBehaviour
     }
     
     IEnumerator RemoveLog(){
-        yield return new WaitForSeconds(durata); 
+        yield return new WaitForSeconds(durata);
         Destroy(this.gameObject); 
     }
 }
