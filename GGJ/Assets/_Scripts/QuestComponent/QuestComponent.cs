@@ -11,14 +11,13 @@ public class QuestComponent : MonoBehaviour
 
 [SerializeField] private ScriptableQuest quest;
 [SerializeField] private QuestUI questUI;
-[SerializeField] private Transform finalPosition;
-[SerializeField] private float speed;
 [SerializeField] private KeyCode interactKey;
 [SerializeField] private EnumStateQuest stateQuest;
 private bool completed = false;
 private bool canInteract = false;
 
 public static event Action OnQuestStart;
+public static event Action OnQuestEnd;
 public static event Action<InventoryEntry> OnItemGive;
 
 #endregion
@@ -89,7 +88,8 @@ private void CheckCompletion(InventoryEntry entry)
     {
         completed = true;
         questUI.gameObject.SetActive(false);
-        LeanTween.move(gameObject, finalPosition.position, speed);
+        
+        OnQuestEnd?.Invoke();
     }
 }
 
