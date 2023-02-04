@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,13 +21,10 @@ public class Entity : MonoBehaviour
         startPosition = transform.position;
     }
 
-    private void OnEnable()
-    {
-        Inventory.Instance.OnItemPickup.AddListener(ActivateEntity);
-    }
-
     private void Start()
     {
+        Inventory.Instance.OnItemPickup.AddListener(ActivateEntity);
+
         gameObject.SetActive(false);
     }
 
@@ -64,6 +62,12 @@ public class Entity : MonoBehaviour
         transform.position = startPosition;
         gameObject.SetActive(false);
         agent.enabled = false;
+    }
+
+    IEnumerator OnEnableCoroutine()
+    {
+        yield return new WaitUntil((() => Inventory.Instance));
+        
     }
 }
 
