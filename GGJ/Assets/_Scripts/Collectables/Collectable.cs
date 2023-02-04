@@ -7,7 +7,8 @@ using UnityEngine.Events;
 public class Collectable : MonoBehaviour
 {
     [field: SerializeField] public ItemSO _itemToGive { get; private set; }
-    
+
+    [field: SerializeField] public bool Persist = true;
     public bool IsCollected = false;
     [field: SerializeField] public bool IsPickable { get; private set; } = false;
     
@@ -35,7 +36,8 @@ public class Collectable : MonoBehaviour
         Inventory.Instance.OnItemPickup.AddListener(_entry =>
         {
             if (entry == _entry) IsCollected = true;
-            
+            if(!Persist && entry == _entry) gameObject.SetActive(false);
+
             IsPickable = false;
         });
         
