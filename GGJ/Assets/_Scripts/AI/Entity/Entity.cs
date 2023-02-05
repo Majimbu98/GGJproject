@@ -29,21 +29,28 @@ public class Entity : MonoBehaviour
         entities = FindObjectsOfType<Entity>().ToList();
     }
 
+    private void OnEnable()
+    {
+        PauseClass.OnPause += () =>
+        {
+            CanMove = false;
+            agent.destination = transform.position;
+        };
+        
+        PauseClass.OnUnPause += () =>
+        {
+            CanMove = true;
+            agent.destination = target.transform.position;
+        };
+    }
+
     private void Start()
     {
         Inventory.Instance.OnItemPickup.AddListener(ActivateEntity);
         
         QuestComponent.OnItemGive += ResetEntities;
         
-        PauseClass.OnPause += () =>
-        {
-            CanMove = false;
-        };
         
-        PauseClass.OnUnPause += () =>
-        {
-            CanMove = true;
-        };
             
 
         gameObject.SetActive(false);

@@ -52,6 +52,8 @@ private void OnOnPause()
     {
         if (Input.GetKeyDown(key))
         {
+            pause = !pause;
+            
             if (pause)
             {
                 OnPause?.Invoke();
