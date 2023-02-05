@@ -29,6 +29,8 @@ public class FadeImage : Singleton<FadeImage>
                 }, 1, 0 , .5f);
             };
         }));
+        
+        SlideChargingBar.Instance.StartChargingBar();
     }
 }
 
