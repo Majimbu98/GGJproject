@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //Init
 
+    [SerializeField] private Animator animator;
     Rigidbody rb;
     CharacterController controller;
     [SerializeField] Transform groundCheck;
@@ -18,6 +20,11 @@ public class PlayerMovement : MonoBehaviour
     float groundMovementSpeed;
     float airMovementSpeed;
     int contJump=0;
+
+    private void Awake()
+    {
+       
+    }
 
     bool IsGrounded()
     {
@@ -88,10 +95,32 @@ public class PlayerMovement : MonoBehaviour
         //Salto normale
         if (Input.GetKeyUp("space") && (IsGrounded() || IsOnIce()))
         {
+            
+            animator.SetBool("IsJumping", true);
             rb.AddForce(Vector3.up*jumpForce, ForceMode.Impulse);
             contJump = 0;
+            animator.SetBool("IsSkating", false);
+        }
+        else
+        {
+            animator.SetBool("IsJumping", false);
         }
 
+        
+        animator.SetFloat("Speed", rb.velocity.magnitude);
+
+        if (IsGrounded())
+        {
+            animator.SetBool("IsSkating", false);
+            animator.SetBool("IsJumping", false);
+        }
+
+        if (IsOnIce())
+        {
+            animator.SetBool("IsSkating", true);
+            animator.SetBool("", false);
+        }
+        
     }
 
  }
