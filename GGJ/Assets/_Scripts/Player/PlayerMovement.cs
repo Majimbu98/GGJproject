@@ -1,4 +1,4 @@
-
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //Init
 
+    [SerializeField] private Animator animator;
     Rigidbody rb;
     CharacterController controller;
     [SerializeField] Transform groundCheck;
@@ -18,20 +19,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float movementSpeed = 6f;
     float groundMovementSpeed;
     float airMovementSpeed;
-    int contJump = 0;
-    int timeWait = 0;
-    bool isStun = false;
-    [SerializeField] float maxspeed = 9f;
+    int contJump=0;
 
-    IEnumerator WaitStun()
+    private void Awake()
     {
-        yield return new WaitForSeconds(5f);
-        isStun = false;
+       
     }
 
     bool IsGrounded()
     {
-        return Physics.CheckCapsule(rb.position, groundCheck.position, 0.1f, ground);
+        return Physics.CheckSphere(groundCheck.position, 1f, ground);
     }
 
     bool IsOnIce()
@@ -42,24 +39,13 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         airMovementSpeed = movementSpeed / 2;
         groundMovementSpeed = movementSpeed;
-
+        
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Bee")
-        {
-            isStun = true;
-
-            StartCoroutine(WaitStun());
-
-        }
-    }
 
 
 
@@ -87,12 +73,12 @@ public class PlayerMovement : MonoBehaviour
 
 
         //Salto Caricato - Contatore su fixedUpdate 
-        if (Input.GetKey("space") && isStun == false)
+        if (Input.GetKey("space"))
         {
             contJump++;
-            if (contJump >= 43 && (IsGrounded() || IsOnIce()))
+            if (contJump >= 43 && ( IsGrounded() || IsOnIce() ))
             {
-                rb.AddForce(Vector3.up * jumpForce * 2F, ForceMode.Impulse);
+                rb.AddForce(Vector3.up * jumpForce * 1.5F, ForceMode.Impulse);
                 contJump = 0;
             }
         }
@@ -100,31 +86,77 @@ public class PlayerMovement : MonoBehaviour
         movementSpeed = IsGrounded() ? groundMovementSpeed : airMovementSpeed;
 
         //Applicazione Movimento
-        if (isStun == true)
-        {
-            rb.velocity = new Vector3(0, 0, 0);
-        }
-        else
-        {
-            rb.AddRelativeForce(cameraRelativeMovement * movementSpeed);
-        }
+        rb.AddRelativeForce(cameraRelativeMovement*movementSpeed);
     }
 
     void Update()
     {
-        if (rb.velocity.magnitude>maxspeed)
-        {
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxspeed);
-        }
-
 
         //Salto normale
-        if (Input.GetKeyUp("space") && (IsGrounded() || IsOnIce()) && isStun == false)
+        if (Input.GetKeyUp("space") && (IsGrounded() || IsOnIce()))
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            
+            animator.SetBool("IsJumping", true);
+            rb.AddForce(Vector3.up*jumpForce, ForceMode.Impulse);
             contJump = 0;
+            animator.SetBool("IsSkating", false);
+        }
+        else
+        {
+            animator.SetBool("IsJumping", false);
         }
 
+        
+        animator.SetFloat("Speed", rb.velocity.magnitude);
+
+        if (IsGrounded())
+        {
+            animator.SetBool("IsSkating", false);
+            animator.SetBool("IsJumping", false);
+        }
+
+        if (IsOnIce())
+        {
+            animator.SetBool("IsSkating", true);
+            animator.SetBool("", false);
+        }
+        
     }
 
-}
+ }
+
+//Componenti Slide Su Ghiacchio
+//float slidingHorizontally = 0;
+//float slidingVertically = 0;
+
+/*
+if (IsOnIce)
+{
+    if (horizontalInput < slidingHorizontally)
+    {
+
+    }
+    else
+        slidingHorizontally = horizontalInput;        }
+else
+if (IsOnIce())
+{
+    if (playerHorizontalInput != 0 || playerVerticalInput != 0)
+    {
+        rb.velocity = new Vector3(playerHorizontalInput * movementSpeedOnIce, rb.velocity.y, playerVerticalInput * movementSpeedOnIce);
+        slidingHorizontally = playerHorizontalInput * movementSpeedOnIce;
+        slidingVertically = playerVerticalInput * movementSpeedOnIce;
+    }
+    else if(slidingHorizontally!= 0 || slidingVertically!=0)
+    {
+        print(slidingHorizontally + " " + slidingVertically);
+        if(Mathf.Abs(slidingHorizontally) < 0.05f || Mathf.Abs(slidingVertically) < 0.05f)
+        {
+            slidingHorizontally = 0;
+            slidingVertically = 0;
+        }
+        rb.velocity = new Vector3(slidingHorizontally, rb.velocity.y, slidingVertically);
+        //slidingHorizontally = slidingHorizontally / 1.1f;
+        //slidingVertically = slidingVertically / 1.1f;
+    }
+*/
