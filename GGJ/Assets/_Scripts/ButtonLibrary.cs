@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 
-public class ButtonLibrary : MonoBehaviour
+public class ButtonLibrary : Singleton<ButtonLibrary>
 {
 
 #region Variables & Properties
 
 [SerializeField] private Sprite muted;
 [SerializeField] private Sprite smuted;
-[SerializeField] private Image muteSmuteImage;
+[SerializeField] private Button muteSmuteButton;
 [SerializeField] private GameObject pauseScreen;
 [SerializeField] private LevelSaving _levelSaving;
+private bool mute = false;
 
 #endregion
 
@@ -43,7 +45,17 @@ public class ButtonLibrary : MonoBehaviour
 
 public void MuteSmute()
 {
+    if (mute)
+    {
+        muteSmuteButton.GetComponent<Image>().sprite = smuted;
+    }
+    else
+    {
+        muteSmuteButton.GetComponent<Image>().sprite = muted;
+    }
+
     //TODO
+    mute = !mute;
 }
 
 public void Pause()
