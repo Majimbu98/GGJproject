@@ -48,7 +48,7 @@ private void OnCollisionEnter(Collision collision)
             case 1:
                 StartCoroutine(TimerDeactive());
                 break;
-            case 2:
+            default:
                 copyTimes--;
                 break;
         }
