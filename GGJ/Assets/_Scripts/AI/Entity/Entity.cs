@@ -8,7 +8,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Entity : MonoBehaviour
 {
-    private NavMeshAgent agent;
+    public NavMeshAgent agent { get; private set; }
     [SerializeField] private GameObject target;
     [SerializeField] private ItemSO item;
 
@@ -18,6 +18,8 @@ public class Entity : MonoBehaviour
     private List<Entity> entities;
 
     private bool CanMove = true;
+
+    [SerializeField] bool AutoActivation = false;
 
     public static event Action<InventoryEntry> OnCollectorCollision; 
 
@@ -46,12 +48,9 @@ public class Entity : MonoBehaviour
 
     private void Start()
     {
-        Inventory.Instance.OnItemPickup.AddListener(ActivateEntity);
+        if(AutoActivation) Inventory.Instance.OnItemPickup.AddListener(ActivateEntity);
         
         QuestComponent.OnItemGive += ResetEntities;
-        
-        
-            
 
         gameObject.SetActive(false);
     }
