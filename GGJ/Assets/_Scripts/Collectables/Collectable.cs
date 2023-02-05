@@ -55,6 +55,7 @@ public class Collectable : MonoBehaviour
 
     private void ActivateAfterQuest(InventoryEntry entry)
     {
+        if (entry == null) return;
         if (!IsCollected) IsPickable = true;
     }
 }
