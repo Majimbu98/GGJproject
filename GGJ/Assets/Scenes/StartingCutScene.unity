@@ -230,9 +230,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 622933692}
   spriteList:
-  - {fileID: 21300000, guid: f2901efd8bb16bc408ad37f017fbf9bc, type: 3}
-  - {fileID: 21300000, guid: dae33700bd23f76409a80bf78fdb8a42, type: 3}
-  - {fileID: 21300000, guid: 17035c204825f6340a252046ab6476fd, type: 3}
+  - {fileID: 21300000, guid: 784f4023a3ec1a6479068d024baeedc6, type: 3}
+  - {fileID: 21300000, guid: 2ad1938610e622344a63e476820f7328, type: 3}
+  - {fileID: 21300000, guid: 63b2c8695c86c5443b6712496628fae2, type: 3}
   timer: 2
 --- !u!4 &1141862207
 Transform:
