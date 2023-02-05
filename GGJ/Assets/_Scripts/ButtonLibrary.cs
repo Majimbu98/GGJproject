@@ -1,19 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
+using UnityEngine.UI;
+using Image = UnityEngine.UI.Image;
 
-public class ButtonLibrary : MonoBehaviour
+public class ButtonLibrary : Singleton<ButtonLibrary>
 {
 
 #region Variables & Properties
 
 [SerializeField] private Sprite muted;
 [SerializeField] private Sprite smuted;
-[SerializeField] private Image muteSmuteImage;
-[SerializeField] private GameObject pauseScreen;
+[SerializeField] private Image muteSmuteButton;
 [SerializeField] private LevelSaving _levelSaving;
+private bool mute = false;
 
 #endregion
 
@@ -43,17 +47,26 @@ public class ButtonLibrary : MonoBehaviour
 
 public void MuteSmute()
 {
-    //TODO
-}
+        string vcaPath = "vca:/Main";
+        FMOD.Studio.VCA vca = FMODUnity.RuntimeManager.GetVCA(vcaPath);
 
-public void Pause()
-{
-    pauseScreen.SetActive(false);
-}
+        if (mute)
+    {
+        muteSmuteButton.sprite = smuted;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/ui_click");
+            vca.setVolume(0);
+        }
+    else
+    {
+        muteSmuteButton.sprite = muted;
+            FMODUnity.RuntimeManager.PlayOneShot("event:/ui_click");
+            vca.setVolume(1);
 
-public void Resume()
-{
-    pauseScreen.SetActive(false);
+        }
+
+        //TODO
+     
+        mute = !mute;
 }
 
 public void OpenGame()
