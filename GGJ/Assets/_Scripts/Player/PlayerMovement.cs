@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool IsGrounded()
     {
-        return Physics.CheckSphere(groundCheck.position, 0.1f, ground);
+        return Physics.CheckSphere(groundCheck.position, 1f, ground);
     }
 
     bool IsOnIce()
