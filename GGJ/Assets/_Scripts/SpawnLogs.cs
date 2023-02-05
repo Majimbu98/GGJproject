@@ -7,9 +7,10 @@ public class SpawnLogs : MonoBehaviour
     [SerializeField] public int SpawnInterval = 5;
     [SerializeField] public int SpawnAmount = 2;
     [SerializeField] public Vector3 SpawnLocation;
+    [SerializeField] public Vector3 ArrivalLocation;
     private int count = 0;
   
-    public GameObject TreeLog;
+    public WoodenLog TreeLog;
 
     void OnEnable()
     {
@@ -18,8 +19,12 @@ public class SpawnLogs : MonoBehaviour
 
     IEnumerator SpawnLog()
     {
+        TreeLog.origine = SpawnLocation;
+        TreeLog.destinazione = ArrivalLocation;
         yield return new WaitForSeconds(SpawnInterval);
         Instantiate(TreeLog, SpawnLocation, Quaternion.identity);
+        //current.origine = SpawnLocation;
+        //current.destinazione = ArrivalLocation;
         count++;
         if(count!=SpawnAmount)
             StartCoroutine(SpawnLog());

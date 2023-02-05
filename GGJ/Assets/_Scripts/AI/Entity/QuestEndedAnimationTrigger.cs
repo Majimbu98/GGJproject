@@ -28,6 +28,7 @@ public class QuestEndedAnimationTrigger : MonoBehaviour
 
     public void WaitForAnimation()
     {
+        if (!finalPosition) return;
         collider.enabled = false;
         LeanTween.move(goToMove, finalPosition.position, speed);
     }
