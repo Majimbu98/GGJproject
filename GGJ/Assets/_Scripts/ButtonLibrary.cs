@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
+using UnityEngine.UI;
+using Image = UnityEngine.UI.Image;
 
 public class ButtonLibrary : Singleton<ButtonLibrary>
 {
@@ -12,8 +15,7 @@ public class ButtonLibrary : Singleton<ButtonLibrary>
 
 [SerializeField] private Sprite muted;
 [SerializeField] private Sprite smuted;
-[SerializeField] private Button muteSmuteButton;
-[SerializeField] private GameObject pauseScreen;
+[SerializeField] private Image muteSmuteButton;
 [SerializeField] private LevelSaving _levelSaving;
 private bool mute = false;
 
@@ -47,25 +49,15 @@ public void MuteSmute()
 {
     if (mute)
     {
-        muteSmuteButton.GetComponent<Image>().sprite = smuted;
+        muteSmuteButton.sprite = smuted;
     }
     else
     {
-        muteSmuteButton.GetComponent<Image>().sprite = muted;
+        muteSmuteButton.sprite = muted;
     }
 
     //TODO
     mute = !mute;
-}
-
-public void Pause()
-{
-    pauseScreen.SetActive(false);
-}
-
-public void Resume()
-{
-    pauseScreen.SetActive(false);
 }
 
 public void OpenGame()

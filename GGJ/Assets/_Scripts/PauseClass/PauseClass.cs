@@ -9,14 +9,33 @@ public class PauseClass : MonoBehaviour
 #region Variables & Properties
 
 [SerializeField] private KeyCode key;
-public static event Action OnPause;
+private bool pause=false;
+[SerializeField] private GameObject canvasParent;
+public static event Action OnPause; 
 public static event Action OnUnPause;
+
 
 #endregion
 
 #region MonoBehaviour
 
-    // Awake is called when the script instance is being loaded
+private void OnEnable()
+{
+    OnPause+= OnOnPause;
+    OnUnPause+= OnOnUnPause;
+}
+
+private void OnOnUnPause()
+{
+    canvasParent.SetActive(false);
+}
+
+private void OnOnPause()
+{
+    canvasParent.SetActive(true);
+}
+
+// Awake is called when the script instance is being loaded
     void Awake()
     {
 	
@@ -33,7 +52,16 @@ public static event Action OnUnPause;
     {
         if (Input.GetKeyDown(key))
         {
+            pause = !pause;
             
+            if (pause)
+            {
+                OnPause?.Invoke();
+            }
+            else
+            {
+                OnUnPause?.Invoke();
+            }
         }
     }
 
@@ -41,14 +69,9 @@ public static event Action OnUnPause;
 
 #region Methods
 
-private void ActivePauseScreen()
+public void UnPause()
 {
-    
-}
-
-private void DeactivePauseScreen()
-{
-    
+    OnUnPause?.Invoke();
 }
 
 #endregion

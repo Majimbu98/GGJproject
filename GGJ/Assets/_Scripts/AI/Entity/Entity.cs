@@ -17,6 +17,8 @@ public class Entity : MonoBehaviour
 
     private List<Entity> entities;
 
+    private bool CanMove = true;
+
     public static event Action<InventoryEntry> OnCollectorCollision; 
 
     private void Awake()
@@ -27,17 +29,36 @@ public class Entity : MonoBehaviour
         entities = FindObjectsOfType<Entity>().ToList();
     }
 
+    private void OnEnable()
+    {
+        PauseClass.OnPause += () =>
+        {
+            CanMove = false;
+            agent.destination = transform.position;
+        };
+        
+        PauseClass.OnUnPause += () =>
+        {
+            CanMove = true;
+            agent.destination = target.transform.position;
+        };
+    }
+
     private void Start()
     {
         Inventory.Instance.OnItemPickup.AddListener(ActivateEntity);
+        
         QuestComponent.OnItemGive += ResetEntities;
+        
+        
+            
 
         gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (!agent.enabled) return;
+        if (!agent.enabled || !CanMove) return;
         agent.destination = target.transform.position;
     }
 
