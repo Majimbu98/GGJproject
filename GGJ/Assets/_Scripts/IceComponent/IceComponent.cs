@@ -8,6 +8,8 @@ public class IceComponent : MonoBehaviour
 #region Variables & Properties
 
 [SerializeField] private float time;
+[SerializeField] private int timeBeforePlatformIsDestroyed;
+private int copyTimes;
 
 #endregion
 
@@ -22,7 +24,7 @@ public class IceComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        ResetTimes();
     }
 
     // Update is called once per frame
@@ -39,8 +41,23 @@ private void OnCollisionEnter(Collision collision)
 {
     if (collision.gameObject.tag == "Player")
     {
-        StartCoroutine(TimerDeactive());
+        switch (copyTimes)
+        {
+            case 0:
+                break;
+            case 1:
+                StartCoroutine(TimerDeactive());
+                break;
+            case 2:
+                copyTimes--;
+                break;
+        }
     }
+}
+
+public void ResetTimes()
+{
+    copyTimes = timeBeforePlatformIsDestroyed;
 }
 
 private IEnumerator TimerDeactive()

@@ -55,6 +55,7 @@ private void ReactiveIceList()
     foreach (var iceObject in iceList)
     {
         iceObject.SetActive(true);
+        iceObject.GetComponent<IceComponent>().ResetTimes();
     }
 }
 
