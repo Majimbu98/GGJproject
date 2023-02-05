@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 
-
 public class QuestEndedAnimationTrigger : MonoBehaviour
 {
     private Animator animator;
@@ -38,4 +37,3 @@ public class QuestEndedAnimationTrigger : MonoBehaviour
         animator.SetBool("QuestCompleted", false);
     }
 }
-

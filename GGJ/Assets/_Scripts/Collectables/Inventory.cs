@@ -23,6 +23,8 @@ public class Inventory : Singleton<Inventory>
 
     public void AddItem(InventoryEntry newEntry)
     {
+        newEntry.IsHolding = true;
+        
         var item = items.Find(entry => entry.Item == newEntry.Item);
         
         if (item != null)
@@ -50,6 +52,8 @@ public class Inventory : Singleton<Inventory>
         {
             items.Remove(item);
         }
+
+        item.IsHolding = false;
 
         OnItemRemoved?.Invoke(newEntry);
     }

@@ -3,6 +3,7 @@ public class InventoryEntry
 {
     public ItemSO Item;
     public int Quantity;
+    public bool IsHolding = false;
 
     public Collectable owner { get; private set; }
     
@@ -19,4 +20,3 @@ public class InventoryEntry
         Quantity = 1;
     }
 }
-

@@ -50,6 +50,7 @@ public static event Action<InventoryEntry> OnItemGive;
             }
             else
             {
+                if (!Inventory.Instance.GetItem(quest.item).IsHolding) return;
                 OnItemGive?.Invoke(Inventory.Instance.GetItem(quest.item));
             }
         }
@@ -83,6 +84,8 @@ public static event Action<InventoryEntry> OnItemGive;
 private void CheckCompletion(InventoryEntry entry)
 {
     if (entry == null) return;
+
+    entry.IsHolding = false;
     
     if (entry.Quantity == quest.GetNumber())
     {
