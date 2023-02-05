@@ -5,11 +5,11 @@ using UnityEngine;
 public class SpawnLogs : MonoBehaviour
 {
     [SerializeField] public int SpawnInterval = 5;
+    [SerializeField] public int SpawnAmount = 2;
     [SerializeField] public Vector3 SpawnLocation;
+    private int count = 0;
   
     public GameObject TreeLog;
-    // Start is called before the first frame update
-
 
     void OnEnable()
     {
@@ -20,8 +20,8 @@ public class SpawnLogs : MonoBehaviour
     {
         yield return new WaitForSeconds(SpawnInterval);
         Instantiate(TreeLog, SpawnLocation, Quaternion.identity);
-        //Instantiate(TreeLog, Spawn2, Quaternion.identity);
-        //Instantiate(TreeLog, Spawn3, Quaternion.identity);
-        StartCoroutine(SpawnLog());
+        count++;
+        if(count!=SpawnAmount)
+            StartCoroutine(SpawnLog());
     }
 }
