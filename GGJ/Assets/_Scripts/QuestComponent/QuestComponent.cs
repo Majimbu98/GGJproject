@@ -50,7 +50,6 @@ public static event Action<InventoryEntry> OnItemGive;
             }
             else
             {
-                if (!Inventory.Instance.GetItem(quest.item).IsHolding) return;
                 OnItemGive?.Invoke(Inventory.Instance.GetItem(quest.item));
             }
         }
