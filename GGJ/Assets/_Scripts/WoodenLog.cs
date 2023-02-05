@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class WoodenLog : MonoBehaviour
 {
-    [SerializeField] Vector3 origine = new Vector3(0f,0f,0f);
     [SerializeField] Vector3 destinazione = new Vector3(0f,0f,10f);
     [SerializeField] public float durata = 10;
+    Vector3 origine = new Vector3(0f,0f,0f);
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
+        origine =  transform.position;
         StartCoroutine(MoveLog());
     }
     
