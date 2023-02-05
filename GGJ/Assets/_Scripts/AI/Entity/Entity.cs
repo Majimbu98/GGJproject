@@ -60,6 +60,8 @@ public class Entity : MonoBehaviour
 
     private void ResetEntities(InventoryEntry entry)
     {
+        if (entry == null) return;
+        
         foreach (var entity in entities)
         {
             LeanTween.moveY(entity.gameObject, 20f, 4f).setOnComplete((() =>
