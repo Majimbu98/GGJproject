@@ -17,6 +17,8 @@ public class Entity : MonoBehaviour
 
     private List<Entity> entities;
 
+    private bool CanMove = true;
+
     public static event Action<InventoryEntry> OnCollectorCollision; 
 
     private void Awake()
@@ -30,14 +32,26 @@ public class Entity : MonoBehaviour
     private void Start()
     {
         Inventory.Instance.OnItemPickup.AddListener(ActivateEntity);
+        
         QuestComponent.OnItemGive += ResetEntities;
+        
+        PauseClass.OnPause += () =>
+        {
+            CanMove = false;
+        };
+        
+        PauseClass.OnUnPause += () =>
+        {
+            CanMove = true;
+        };
+            
 
         gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (!agent.enabled) return;
+        if (!agent.enabled || !CanMove) return;
         agent.destination = target.transform.position;
     }
 
