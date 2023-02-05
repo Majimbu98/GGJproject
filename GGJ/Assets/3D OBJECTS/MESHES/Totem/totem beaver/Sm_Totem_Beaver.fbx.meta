@@ -1,15 +1,14 @@
 fileFormatVersion: 2
-guid: 83abe01d374507e4da8870a51940d2d1
+guid: 9aaaf86136b44fc48af9b5d4d123a16b
 ModelImporter:
   serializedVersion: 21300
-  internalIDToNameTable:
+  internalIDToNameTable: []
+  externalObjects:
   - first:
-      74: 4781951162920444690
-    second: Armature|ArmatureAction
-  - first:
-      74: -1422011007694221501
-    second: Armature|ArmatureAction.001
-  externalObjects: {}
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 5712264a5b667854c9be958891b61d9f, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
