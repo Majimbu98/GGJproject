@@ -4,9 +4,17 @@ ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
-      74: 4781951162920444690
-    second: Armature|ArmatureAction
-  externalObjects: {}
+      74: 6065333994261340666
+    second: Armature|Armature|Armature|ArmatureAction
+  - first:
+      74: 8003312214571475973
+    second: Armature|Armature|Armature|ArmatureAction.001
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Bee
+    second: {fileID: 2100000, guid: 8919cc9dab0a67a43bb7f2c9cebf9bad, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
