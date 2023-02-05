@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
             contJump++;
             if (contJump >= 43 && (IsGrounded() || IsOnIce()))
             {
-                rb.AddForce(Vector3.up * jumpForce * 1.5F, ForceMode.Impulse);
+                rb.AddForce(Vector3.up * jumpForce * 2F, ForceMode.Impulse);
                 contJump = 0;
             }
         }
