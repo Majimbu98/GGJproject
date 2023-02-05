@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8305712011065420016}
   - component: {fileID: 6396732344330687897}
   - component: {fileID: 7976868568337652477}
-  - component: {fileID: 7862413095825477354}
+  - component: {fileID: 6905662685793245948}
   m_Layer: 0
   m_Name: WoodenLog
   m_TagString: Untagged
@@ -99,7 +99,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &7862413095825477354
+--- !u!114 &6905662685793245948
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,3 +111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f0135a8fbe65e45999d4024f5697e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destinazione: {x: 0, y: 0, z: 10}
+  durata: 10
+  origine: {x: 0, y: 0, z: 0}

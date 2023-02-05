@@ -5,8 +5,8 @@ using UnityEngine;
 public class WoodenLog : MonoBehaviour
 {
     public Vector3 destinazione = new Vector3(0f,0f,10f);
-    [SerializeField] public float durata = 10;
-    public Vector3 origine = new Vector3(0f,0f,0f);
+    public Vector3 origine = new Vector3(0f, 0f, 0f);
+    public float durata = 10;
 
     // Start is called before the first frame update
     void OnEnable()
