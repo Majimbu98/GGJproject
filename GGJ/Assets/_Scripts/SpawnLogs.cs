@@ -8,6 +8,7 @@ public class SpawnLogs : MonoBehaviour
     [SerializeField] public int SpawnAmount = 2;
     [SerializeField] public Vector3 SpawnLocation;
     [SerializeField] public Vector3 ArrivalLocation;
+    [SerializeField] public int TravelDuration;
     private int count = 0;
   
     public WoodenLog TreeLog;
@@ -21,6 +22,7 @@ public class SpawnLogs : MonoBehaviour
     {
         TreeLog.origine = SpawnLocation;
         TreeLog.destinazione = ArrivalLocation;
+        TreeLog.durata = TravelDuration;
         yield return new WaitForSeconds(SpawnInterval);
         Instantiate(TreeLog, SpawnLocation, Quaternion.identity);
         //current.origine = SpawnLocation;
